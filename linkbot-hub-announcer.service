@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=linkbot-hub-announcer
+ExecStart=/usr/bin/env linkbot-hub-announcer
 Restart=always
 User=nobody
 Environment=PATH=/usr/bin:/usr/local/bin
