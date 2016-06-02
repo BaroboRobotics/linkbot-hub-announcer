@@ -4,11 +4,10 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env linkbot-hub-announcer
+ExecStart=linkbot-hub-announcer
 Restart=always
 User=nobody
 Environment=PATH=/usr/bin:/usr/local/bin
-Environment=NODE_ENV=production
 
 [Install]
 WantedBy=multi-user.target
