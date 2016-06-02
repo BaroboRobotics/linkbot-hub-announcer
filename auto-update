@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# An auto-update script to keep the system up-to-date. This is primarily useful
-# for linkbotd upgrades, which will be frequent. This file (probably) belongs
-# in /etc/cron.daily/
-
-apt-get update
-apt-get upgrade -y
-apt-get autoclean
