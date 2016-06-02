@@ -1,14 +1,15 @@
 {
-  "name": "ip-address-announcer",
+  "name": "linkbot-hub-announcer",
   "version": "1.0.0",
   "description": "Script to announce Linkbot Hub IP addresses to Linkbot Labs",
-  "main": "announcer.js",
+  "bin": { "linkbot-hub-announcer": "./announcer.js" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Barobo, Inc.",
+  "private": true,
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "promise": "^7.1.1",
     "rtc-signaller": "^6.3.0",
     "rtc-switchboard-messenger": "^2.0.3"

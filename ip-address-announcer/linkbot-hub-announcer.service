@@ -4,12 +4,11 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/home/pi/linkbot-hub-files/ip-address-announcer/announcer.js
+ExecStart=/usr/bin/env linkbot-hub-announcer
 Restart=always
-User=pi
+User=nobody
 Environment=PATH=/usr/bin:/usr/local/bin
 Environment=NODE_ENV=production
-WorkingDirectory=/home/pi/linkbot-hub-files/ip-address-announcer
 
 [Install]
 WantedBy=multi-user.target
