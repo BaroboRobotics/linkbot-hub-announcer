@@ -7,18 +7,14 @@ var os = require('os');
 var ipAddresses = function () {
     // Generate a list of IPv4 addresses associated with eth0 and wlan0, eth0 ordered first if
     // available.
+    function isIPv4 (alias) { return alias.family === 'IPv4'; }
     var interfaces = os.networkInterfaces();
     var ipAddresses = [];
-    ['eth0', 'wlan0'].forEach(function (name) {
-        if (interfaces.hasOwnProperty(name)) {
-            interfaces[name].forEach(function (alias) {
-                // Each interface object is a list of IP address aliases.
-                if (alias.family === 'IPv4') {
-                    console.log('pushing ', alias);
-                    ipAddresses.push(alias.address);
-                }
-            });
-        }
+    ['eth0', 'wlan0'].filter(interfaces.hasOwnProperty).forEach(function (name) {
+        // Each interface object is a list of IP address aliases.
+        interfaces[name].filter(isIPv4).forEach(function (alias) {
+            ipAddresses.push(alias.address);
+        });
     });
     return ipAddresses;
 }();
