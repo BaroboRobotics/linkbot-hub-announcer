@@ -10,6 +10,7 @@ Execute:
 sudo npm install -g
 sudo cp linkbot-hub-announcer.service /etc/systemd/system/
 sudo systemctl daemon-reload
+sudo systemctl enable linkbot-hub-announcer
 sudo systemctl start linkbot-hub-announcer
 sudo systemctl status linkbot-hub-announcer
 ```

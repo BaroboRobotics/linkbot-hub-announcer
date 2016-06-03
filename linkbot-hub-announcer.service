@@ -1,13 +1,13 @@
 [Unit]
 Description=Linkbot Hub IP Address Announcer
-After=network.target
+After=network-online.target
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/env linkbot-hub-announcer
 Restart=always
 User=nobody
-Environment=PATH=/usr/bin:/usr/local/bin
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
 
 [Install]
 WantedBy=multi-user.target
