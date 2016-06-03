@@ -21,7 +21,7 @@ var ipAddresses = function () {
 }();
 
 var messenger = require('rtc-switchboard-messenger');
-var signaller = require('rtc-signaller')(messenger('http://barobo.com:42005/'));
+var signaller = require('rtc-signaller')(messenger('http://barobo.com:4000/'));
 
 signaller.on('error', function(err) {
     console.log('error: ', err);
