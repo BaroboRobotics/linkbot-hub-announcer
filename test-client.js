@@ -44,7 +44,7 @@ var resolveLinkbotHub = function (switchboardUri, hostname) {
 
 // Example use.
 var hostname = process.argv[2];
-resolveLinkbotHub('http://barobo.com:4000/', hostname).then(function (ipAddresses) {
+resolveLinkbotHub('http://switchboard.linkbotlabs.com/', hostname).then(function (ipAddresses) {
     console.log('Resolved', hostname, 'to', ipAddresses);
 }, function (error) {
     console.error('Error resolving', hostname, ':', error);
