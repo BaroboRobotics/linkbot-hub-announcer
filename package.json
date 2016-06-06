@@ -17,6 +17,9 @@
   "node_deb": {
     "init": "systemd",
     "version": "1.0.0",
-    "start_command": "/usr/bin/node linkbot-hub-announcer.js"
+    "start_command": "/usr/bin/node linkbot-hub-announcer.js",
+    "templates": {
+      "systemd_service": "./linkbot-hub-announcer.service"
+    }
   }
 }
