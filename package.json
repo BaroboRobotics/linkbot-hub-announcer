@@ -1,6 +1,6 @@
 {
   "name": "linkbot-hub-announcer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Script to announce Linkbot Hub IP addresses to Linkbot Labs",
   "bin": { "linkbot-hub-announcer": "./linkbot-hub-announcer.js" },
   "scripts": {
@@ -18,7 +18,9 @@
     "init": "systemd",
     "start_command": "/usr/bin/node linkbot-hub-announcer.js",
     "templates": {
-      "systemd_service": "./linkbot-hub-announcer.service"
+      "systemd_service": "./linkbot-hub-announcer.service",
+      "postinst": "./scripts/postinst",
+      "prerm": "./scripts/prerm"
     }
   }
 }
