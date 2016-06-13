@@ -30,12 +30,12 @@ var messenger = require('rtc-switchboard-messenger');
 var signaller = require('rtc-signaller')(messenger(switchboardUri, switchboardOpts));
 
 var tenMinutesInMs = 600000;
+var profile = {
+    room: os.hostname(),
+    type: 'linkbot-hub',
+    ipAddresses: ipAddresses()
+};
 var announcementLoop = setInterval(function () {
-    var profile = {
-        room: os.hostname(),
-        type: 'linkbot-hub',
-        ipAddresses: ipAddresses()
-    };
     signaller.announce(profile);
 }, tenMinutesInMs);
 // Send an announcement every ten minutes to try to keep the connection alive.
@@ -67,3 +67,6 @@ signaller.on('error', function(err) {
 //   signaller.to(peer.id).send('/yourIdentifier', text);  // omit .to(peer.id) to broadcast?
 // And receive a message using this:
 //   signaller.on('message:yourIdentifier', function (text) { ... });
+
+signaller.announce(profile);
+signaller.connect();
