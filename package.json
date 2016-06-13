@@ -1,6 +1,6 @@
 {
   "name": "linkbot-hub-announcer",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Script to announce Linkbot Hub IP addresses to Linkbot Labs",
   "bin": { "linkbot-hub-announcer": "./linkbot-hub-announcer.js" },
   "scripts": {
