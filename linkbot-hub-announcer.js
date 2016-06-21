@@ -24,7 +24,7 @@ var switchboardUri = 'https://switchboard.linkbotlabs.com/';
 var switchboardOpts = {
     endpoints: ['/'],  // Prevent signaller's error event from triggering extra times.
     autoconnect: true,
-    reconnect: false
+    reconnect: true
 };
 var messenger = require('rtc-switchboard-messenger');
 var signaller = require('rtc-signaller')(messenger(switchboardUri, switchboardOpts));
