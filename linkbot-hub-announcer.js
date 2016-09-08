@@ -10,13 +10,15 @@ var ipAddresses = function () {
     function isIPv4 (alias) { return alias.family === 'IPv4'; }
     var ipAddresses = [];
     var interfaces = os.networkInterfaces();
-    var interfaceExists = interfaces.hasOwnProperty.bind(interfaces);
-    ['eth0', 'wlan0'].filter(interfaceExists).forEach(function (name) {
-        // Each interface object is a list of IP address aliases.
-        interfaces[name].filter(isIPv4).forEach(function (alias) {
-            ipAddresses.push(alias.address);
-        });
-    });
+    console.log(interfaces);
+    for (var key in interfaces) {
+        if ( interfaces.hasOwnProperty(key) ) {
+            if ( key == "lo" ) { continue; }
+            interfaces[key].filter(isIPv4).forEach(function (alias) {
+                    ipAddresses.push(alias.address);
+                    });
+        }
+    }
     return ipAddresses;
 };
 
