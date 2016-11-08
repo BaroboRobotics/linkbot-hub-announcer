@@ -44,6 +44,7 @@ var tenMinutesInMs = 600000;
 
 announceIpAddresses();
 // Announce ourselves immediately after the connection is established.
+
 var announcementLoop = setInterval(announceIpAddresses, tenMinutesInMs);
 // Send an announcement every ten minutes to try to keep the connection alive.
 
@@ -53,8 +54,6 @@ var now = function () {
 
 signaller.on('error', function(err) {
     console.log(now(), 'error: ', err);
-    clearInterval(announcementLoop);
-    // If there's an error, quit and let systemd restart us.
 }).on('connected', function() {
     console.log(now(), 'connected');
 }).on('disconnected', function() {
