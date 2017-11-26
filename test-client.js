@@ -60,7 +60,7 @@ var callLinkbotHub = function (switchboardUri, hostname) {
             reject(error);
         });
 
-        var pc = wrtc.RTCPeerConnection(null);
+        var pc = new wrtc.RTCPeerConnection(null);
 
         signaller.on('peer:announce', function(peer) {
             pc.setRemoteDescription(peer.description);
