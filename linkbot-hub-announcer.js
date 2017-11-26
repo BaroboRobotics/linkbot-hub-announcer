@@ -3,6 +3,7 @@
 'use strict';
 
 var os = require('os');
+var wrtc = require('wrtc');
 
 var ipAddresses = function () {
     // Generate a list of IPv4 addresses associated with eth0 and wlan0, eth0 ordered first if
@@ -33,7 +34,7 @@ var signaller = require('rtc-signaller')(messenger(switchboardUri, switchboardOp
 
 var announceIpAddresses = function () {
     var profile = {
-        room: os.hostname(),
+        room: "linkbot-hub-aaaaaa",
         type: 'linkbot-hub',
         ipAddresses: ipAddresses()
     };
@@ -42,10 +43,10 @@ var announceIpAddresses = function () {
 
 var tenMinutesInMs = 600000;
 
-announceIpAddresses();
+// announceIpAddresses();
 // Announce ourselves immediately after the connection is established.
 
-var announcementLoop = setInterval(announceIpAddresses, tenMinutesInMs);
+// var announcementLoop = setInterval(announceIpAddresses, tenMinutesInMs);
 // Send an announcement every ten minutes to try to keep the connection alive.
 
 var now = function () {
@@ -66,6 +67,7 @@ signaller.on('error', function(err) {
     console.log(now(), 'peer:connected: ', id);
 }).on('peer:announce', function(peer) {
     console.log(now(), 'peer:announce: ', peer);
+    on_call(peer);
 }).on('peer:update', function(peer) {
     console.log(now(), 'peer:update: ', peer);
 });
@@ -73,5 +75,55 @@ signaller.on('error', function(err) {
 //   signaller.to(peer.id).send('/yourIdentifier', text);  // omit .to(peer.id) to broadcast?
 // And receive a message using this:
 //   signaller.on('message:yourIdentifier', function (text) { ... });
+
+var on_call = function(peer) {
+    var pc = wrtc.RTCPeerConnection(null);
+    pc.setRemoteDescription(peer.description).then(function() {
+        console.log('pc.setRemoteDescription result: success');
+    }, function(err) {
+        console.log('pc.setRemoteDescription error: ' + err);
+    });
+
+    pc.createAnswer().then(function(desc) {
+        pc.setLocalDescription(desc).then( function() {
+            console.log('pc.setLocalDescription() success.');
+        }, function(err) {
+            console.log('pc.setLocalDescription() error: ' + err);
+        });
+
+        var profile = {
+            room: "linkbot-hub-aaaaaa",
+            type: 'linkbot-hub',
+            description: desc
+        };
+
+        signaller.announce(profile);
+        console.log('pc.createAnswer() success.');
+    }, function(err) {
+        console.log('pc.createAnswer() err: ' + err);
+    });
+
+    signaller.on('message:candidate', function(peer) {
+        pc.addIceCandidate(peer.candidate).then(function() {
+            console.log('pc.addIceCandidate() success.');
+        },
+        function(err) {
+            console.log('pc.addIceCandidate() err. ' + err);
+        });
+    });
+
+    pc.onicecandidate = function(e) {
+        console.log('onicecandidate: '+e);
+        var profile = {
+            room: "linkbot-hub-aaaaaa",
+            type: 'linkbot-hub',
+            candidate: e.candidate
+        };
+        signaller.send('/candidate', profile);
+    };
+    pc.oniceconnectionstatechange = function(e) {
+        console.log('oniceconnectionstatechange: '+e);
+    };
+};
 
 signaller.connect();

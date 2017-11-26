@@ -2,7 +2,9 @@
   "name": "linkbot-hub-announcer",
   "version": "1.0.10",
   "description": "Script to announce Linkbot Hub IP addresses to Linkbot Labs",
-  "bin": { "linkbot-hub-announcer": "./linkbot-hub-announcer.js" },
+  "bin": {
+    "linkbot-hub-announcer": "./linkbot-hub-announcer.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +14,8 @@
   "dependencies": {
     "promise": "^7.1.1",
     "rtc-signaller": "^6.3.0",
-    "rtc-switchboard-messenger": "^2.0.3"
+    "rtc-switchboard-messenger": "^2.0.3",
+    "wrtc": "0.0.62"
   },
   "node_deb": {
     "init": "systemd",
